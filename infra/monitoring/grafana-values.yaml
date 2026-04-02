@@ -1,0 +1,22 @@
+grafana:
+  adminUser: admin
+  # Change after first login or inject via Secret in production.
+  adminPassword: changeme-scalelab
+  service:
+    type: ClusterIP
+  grafana.ini:
+    server:
+      root_url: https://scalelab.yeseulkim.cloud
+      domain: scalelab.yeseulkim.cloud
+    security:
+      cookie_secure: true
+      strict_transport_security: true
+      x_content_type_options: true
+      x_xss_protection: true
+    users:
+      viewers_can_edit: false
+      default_theme: dark
+
+prometheus:
+  prometheusSpec:
+    retention: 7d

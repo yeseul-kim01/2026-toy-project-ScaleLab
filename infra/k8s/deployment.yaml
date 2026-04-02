@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: target-service
+  namespace: scalelab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: target-service
+  template:
+    metadata:
+      labels:
+        app: target-service
+    spec:
+      containers:
+        - name: target-service
+          image: 894831047310.dkr.ecr.ap-northeast-2.amazonaws.com/scalelab:v0.1.0
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
